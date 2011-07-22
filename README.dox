@@ -1,0 +1,29 @@
+/**
+@mainpage
+@author Rowan Wookey <admin@rwky.net> &copy; copyright 2010-2011.
+LICENSE: Released under the Simplified BSD License, see the LICENSE file or http://www.opensource.org/licenses/BSD-2-Clause<br />
+
+<h2>System Requirements</h2>
+PHP 5.3.0 or greater<br />
+<p>
+<h2>Examples of usage</h2>
+
+Create a redis instant, add some data via a pipe and then return it<br />
+<code><?php<br />
+require("rwky-redis.php");<br />
+$redis = new \\RWKY\\Redis\\Redis();<br />
+$response=$redis->pipe()->set("Question","What is your favourite colour?")->set("Answer","Blue...no yellow..ARGHHHH")->get("Question")->get("Answer")->drain();<br />
+print_r($response);<br />
+?></code><br />
+Will output:<br />
+<code>Array<br />
+(<br />
+    [0] => 1<br />
+    [1] => 1<br />
+    [2] => What is your favourite colour?<br />
+    [3] => Blue...no yellow..ARGHHHH<br />
+)</code><br />
+The code for this example can be found in the examples/example1.php file<br />
+
+</p>
+*/
