@@ -1,9 +1,14 @@
 <?php
 namespace RWKY\Redis;
 /**
+ *@file
  *This file contains all the classes to use RWKY\\Redis
  */
 
+/**
+ *The version of the library
+ */
+define("VERSION",2011072200);
 
 /**
  *@brief The main redis class, use this to access redis
