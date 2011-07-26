@@ -26,4 +26,8 @@ Will output:<br />
 The code for this example can be found in the examples/example1.php file<br />
 
 </p>
+
+<h2>Support</h2>
+For bug reports please visit <a href="https://github.com/rwky/Rwky-Redis/issues" target="_blank">https://github.com/rwky/Rwky-Redis/issues</a><br />
+For commercial support email <a href="mailto:admin@rwky.net">admin@rwky.net</a>
 */

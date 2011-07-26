@@ -5,7 +5,8 @@ var NAVTREE =
     [ "Data Structures", "annotated.html", [
       [ "Protocol", "class_r_w_k_y_1_1_redis_1_1_protocol.html", null ],
       [ "Redis", "class_r_w_k_y_1_1_redis_1_1_redis.html", null ],
-      [ "RedisException", "class_r_w_k_y_1_1_redis_1_1_redis_exception.html", null ]
+      [ "RedisException", "class_r_w_k_y_1_1_redis_1_1_redis_exception.html", null ],
+      [ "RedisSessions", "class_r_w_k_y_1_1_redis_1_1_redis_sessions.html", null ]
     ] ],
     [ "Data Structure Index", "classes.html", null ],
     [ "Data Fields", "functions.html", null ],
@@ -16,6 +17,7 @@ var NAVTREE =
     [ "Namespace Members", "namespacemembers.html", null ],
     [ "File List", "files.html", [
       [ "benchmark.php", "benchmark_8php.html", null ],
+      [ "rwky-redis-sessions.php", "rwky-redis-sessions_8php.html", null ],
       [ "rwky-redis.php", "rwky-redis_8php.html", null ]
     ] ],
     [ "Globals", "globals.html", null ]
