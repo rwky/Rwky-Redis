@@ -1,7 +1,7 @@
 <?php
 namespace RWKY\Redis;
 date_default_timezone_set("UTC");
-require("redis.php");
+require("rwky-redis.php");
 
 function exception_error_handler($errno, $errstr, $errfile, $errline ) {
     throw new \ErrorException($errstr, 0, $errno, $errfile, $errline);

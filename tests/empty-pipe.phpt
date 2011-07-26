@@ -8,9 +8,9 @@ var_dump($redis->pipe()->set("testkey","orange")->emptyPipe()->drain());
 require("cleanup.php");
 ?>
 --EXPECTF--
-Fatal error: Uncaught exception 'RWKY\Redis\RedisException' with message 'Cannot drain when no pipe exists' in /host/rwky-redis/redis.php:%d
+Fatal error: Uncaught exception 'RWKY\Redis\RedisException' with message 'Cannot drain when no pipe exists' in /host/rwky-redis/rwky-redis.php:%d
 Stack trace:
-#0 /host/rwky-redis/redis.php(%d): RWKY\Redis\Redis->err('Cannot drain wh...', 1, %d)
+#0 /host/rwky-redis/rwky-redis.php(%d): RWKY\Redis\Redis->err('Cannot drain wh...', 1, %d)
 #1 /host/rwky-redis/tests/empty-pipe.php(%d): RWKY\Redis\Redis->drain()
 #2 {main}
-  thrown in /host/rwky-redis/redis.php on line %d
+  thrown in /host/rwky-redis/rwky-redis.php on line %d
