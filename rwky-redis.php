@@ -8,7 +8,7 @@ namespace RWKY\Redis;
 /**
  *The version of the library
  */
-define("VERSION",2011072200);
+define("VERSION",2011072600);
 
 /**
  *@brief The main redis class, use this to access redis
