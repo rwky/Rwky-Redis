@@ -6,15 +6,14 @@ namespace RWKY\Redis;
  */
 
 /**
- *The version of the library
- */
-define("VERSION",2011072600);
-
-/**
  *@brief The main redis class, use this to access redis
  */
 class Redis
 {
+  /**
+ *The version of the library
+ */
+  const VERSION=2011083100;
   
   /**
    *Redis Errors, these should kill the script

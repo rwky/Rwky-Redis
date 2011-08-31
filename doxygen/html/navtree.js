@@ -12,9 +12,8 @@ var NAVTREE =
     [ "Data Fields", "functions.html", null ],
     [ "Namespace List", "namespaces.html", [
       [ "RWKY", "namespace_r_w_k_y.html", null ],
-      [ "RWKY::Redis", "namespace_r_w_k_y_1_1_redis.html", null ]
+      [ "RWKY\\Redis", "namespace_r_w_k_y_1_1_redis.html", null ]
     ] ],
-    [ "Namespace Members", "namespacemembers.html", null ],
     [ "File List", "files.html", [
       [ "benchmark.php", "benchmark_8php.html", null ],
       [ "rwky-redis-sessions.php", "rwky-redis-sessions_8php.html", null ],
