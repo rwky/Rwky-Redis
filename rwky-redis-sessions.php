@@ -10,7 +10,16 @@ namespace RWKY\Redis;
  *@brief Class for storing PHP sessions in redis
  *
  *Stores session data in redis, uses <a href="http://www.php.net/manual/en/function.session-save-path.php" target="_blank">session_save_path()</a> to set the prefix of the redis key.<br />
- Simply include the file to have it enable session handling. You must include it before calling any <a href="http://www.php.net/manual/en/ref.session.php" target="_blank">session_*</a> functions.
+ Simply include the file and set \RWKY\Redis\RedisSessions::$redis to an instance of \RWKY\Redis\Redis to have it enable session handling. You must include it before calling any <a href="http://www.php.net/manual/en/ref.session.php" target="_blank">session_*</a> functions.<br />
+ Example:<br />
+ <code><br />
+ <?php<br />
+ require("rwky-redis.php");<br />
+ require("rwky-redis-sessions.php");<br />
+ $redis=new \\RWKY\\Redis\\Redis();<br />
+ \\RWKY\\Redis\\RedisSessions::$redis=$redis;<br />
+ ?><br />
+ </code>
  */
 class RedisSessions
 {
@@ -28,6 +37,16 @@ class RedisSessions
    *The Redis instance to communicate with
    */
   public static $redis;
+  
+  /**
+   *@brief stores sessions in the hash
+   *
+   *store the sessions in the hash specified by the variable value, if null then sessions are stored in keys<br />
+   *Hashes allow purging of all sessions using the <a href="http://redis.io/commands/del" target="_blank">DEL</a> command.<br />
+   *However they don't allow auto expiration so the garbage collector has to be used. The key self::$hash-expire will be used to manage expiration of hashes for the garbage collector<br />
+   *If you are using the redis database only as a session store leave this null since it will skil the need for a garbage collector and you can purge all sessions by using <a href="http://redis.io/commands/flushdb" target="_blank">FLUSHDB</a>
+   */
+  public static $hash=null;
   
   /**
    *Opens the session
@@ -59,7 +78,7 @@ class RedisSessions
    */
   public static function read($id)
   {
-    return (string) self::$redis->get(self::$_prefix.":{$id}");
+    return (string) is_null(self::$hash) ? self::$redis->get(self::$_prefix.":{$id}") : self::$redis->hget(self::$hash,self::$_prefix.":{$id}");
   }
   
   /**
@@ -70,7 +89,7 @@ class RedisSessions
    */
   public static function write($id,$data)
   {
-    return self::$redis->setex(self::$_prefix.":{$id}",ini_get("session.gc_maxlifetime"),$data);
+    return is_null(self::$hash) ? self::$redis->setex(self::$_prefix.":{$id}",ini_get("session.gc_maxlifetime"),$data) : self::$redis->pipe()->multi()->zadd(self::$hash."-expire",time()+ini_get("session.gc_maxlifetime"),self::$_prefix.":{$id}")->hset(self::$hash,self::$_prefix.":{$id}",$data)->exec()->drain();
   }
   
   /**
@@ -79,15 +98,24 @@ class RedisSessions
    */
   public static function destroy($id)
   {
-    self::$redis->del(self::$_prefix.":{$id}");
+    return (string) is_null(self::$hash) ? self::$redis->del(self::$_prefix.":{$id}") : self::$redis->pipe()->multi()->hdel(self::$hash,self::$_prefix.":{$id}")->zrem(self::$hash."-expire",self::$_prefix.":{$id}")->exec()->drain();
   }
   
   /**
-   *Place holder function for garbage collection. Just returns true since we use redis' <a href="http://redis.io/commands/setex" target="_blank">SETEX</a> to delete session data after session.gc_maxlifetime ini value
+   *Delete expired sessions, if the value of self::$hash is null then this just returns true, else it prunes up to 100 expired sessions at once.
    *@return bool true
    */
   public static function gc()
   {
+    if(is_null(self::$hash)) return true;
+    
+    $expired=self::$redis->zrangebyscore(self::$hash."-expire",0,time(),'LIMIT 0 100');
+    self::$redis->pipe();
+    foreach($expired as $e)
+    {
+      self::$redis->multi()->zrem(self::$hash."-expire",$e)->hdel(self::$hash,$e)->exec();
+    }
+    self::$redis->drain();
     return true;
   }
   

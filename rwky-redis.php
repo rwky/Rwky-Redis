@@ -13,7 +13,7 @@ class Redis
   /**
  *The version of the library
  */
-  const VERSION=2011083100;
+  const VERSION=2011090100;
   
   /**
    *Redis Errors, these should kill the script

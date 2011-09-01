@@ -32,7 +32,7 @@
   
   <td style="padding-left: 0.5em;">
    <div id="projectname">Rwky Redis
-   &#160;<span id="projectnumber">2011083100</span>
+   &#160;<span id="projectnumber">2011090100</span>
    </div>
    <div id="projectbrief">A simple php redis library</div>
   </td>
@@ -117,6 +117,8 @@ Static Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_r_w_k_y_1_1_redis_1_1_redis_sessions.html#adc185171d05bc68d26066cc379ee7c13">write</a> ($id, $data)</td></tr>
 <tr><td colspan="2"><h2><a name="pub-static-attribs"></a>
 Static Public Attributes</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_r_w_k_y_1_1_redis_1_1_redis_sessions.html#ac9fdf6f2c8fb45c1d3bb9a176802b2ad">$hash</a> = null</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">stores sessions in the hash  <a href="#ac9fdf6f2c8fb45c1d3bb9a176802b2ad"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_r_w_k_y_1_1_redis_1_1_redis_sessions.html#a7e7e7dbbfe52839237c99924e35f2717">$redis</a></td></tr>
 <tr><td colspan="2"><h2><a name="pro-static-attribs"></a>
 Static Protected Attributes</h2></td></tr>
@@ -126,9 +128,18 @@ Static Protected Attributes</h2></td></tr>
 <hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
 <div class="textblock"><p>Class for storing PHP sessions in redis. </p>
 <p>Stores session data in redis, uses <a href="http://www.php.net/manual/en/function.session-save-path.php" target="_blank">session_save_path()</a> to set the prefix of the redis key.<br/>
- Simply include the file to have it enable session handling. You must include it before calling any <a href="http://www.php.net/manual/en/ref.session.php" target="_blank">session_*</a> functions. </p>
+ Simply include the file and set ::$redis to an instance of  to have it enable session handling. You must include it before calling any <a href="http://www.php.net/manual/en/ref.session.php" target="_blank">session_*</a> functions.<br/>
+ Example:<br/>
+ <code><br/>
+ &lt;?php<br/>
+ require("rwky-redis.php");<br/>
+ require("rwky-redis-sessions.php");<br/>
+ $redis=new \<a class="el" href="namespace_r_w_k_y.html">RWKY</a>\<a class="el" href="class_r_w_k_y_1_1_redis_1_1_redis.html" title="The main redis class, use this to access redis.">Redis</a>\Redis();<br/>
+ \<a class="el" href="namespace_r_w_k_y.html">RWKY</a>\<a class="el" href="class_r_w_k_y_1_1_redis_1_1_redis.html" title="The main redis class, use this to access redis.">Redis</a>\<a class="el" href="class_r_w_k_y_1_1_redis_1_1_redis_sessions.html#a7e7e7dbbfe52839237c99924e35f2717">RedisSessions::$redis</a>=$redis;<br/>
+ ?&gt;<br/>
+ </code> </p>
 
-<p>Definition at line <a class="el" href="rwky-redis-sessions_8php_source.html#l00015">15</a> of file <a class="el" href="rwky-redis-sessions_8php_source.html">rwky-redis-sessions.php</a>.</p>
+<p>Definition at line <a class="el" href="rwky-redis-sessions_8php_source.html#l00024">24</a> of file <a class="el" href="rwky-redis-sessions_8php_source.html">rwky-redis-sessions.php</a>.</p>
 </div><hr/><h2>Member Function Documentation</h2>
 <a class="anchor" id="a1d68d0d72e16e18dfe327f39868b8fb5"></a><!-- doxytag: member="RWKY::Redis::RedisSessions::close" ref="a1d68d0d72e16e18dfe327f39868b8fb5" args="()" -->
 <div class="memitem">
@@ -146,7 +157,7 @@ Static Protected Attributes</h2></td></tr>
 <p>Closes the session </p>
 <dl class="return"><dt><b>Returns:</b></dt><dd>bool true </dd></dl>
 
-<p>Definition at line <a class="el" href="rwky-redis-sessions_8php_source.html#l00050">50</a> of file <a class="el" href="rwky-redis-sessions_8php_source.html">rwky-redis-sessions.php</a>.</p>
+<p>Definition at line <a class="el" href="rwky-redis-sessions_8php_source.html#l00069">69</a> of file <a class="el" href="rwky-redis-sessions_8php_source.html">rwky-redis-sessions.php</a>.</p>
 <div class="fragment"><pre class="fragment">  {
     <span class="keywordflow">return</span> <span class="keyword">true</span>;
   }
@@ -175,9 +186,9 @@ Static Protected Attributes</h2></td></tr>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="rwky-redis-sessions_8php_source.html#l00080">80</a> of file <a class="el" href="rwky-redis-sessions_8php_source.html">rwky-redis-sessions.php</a>.</p>
+<p>Definition at line <a class="el" href="rwky-redis-sessions_8php_source.html#l00099">99</a> of file <a class="el" href="rwky-redis-sessions_8php_source.html">rwky-redis-sessions.php</a>.</p>
 <div class="fragment"><pre class="fragment">  {
-    self::$redis-&gt;del(self::$_prefix.<span class="stringliteral">&quot;:{$id}&quot;</span>);
+    <span class="keywordflow">return</span> (<span class="keywordtype">string</span>) is_null(self::$hash) ? self::$redis-&gt;del(self::$_prefix.<span class="stringliteral">&quot;:{$id}&quot;</span>) : self::$redis-&gt;pipe()-&gt;multi()-&gt;hdel(self::$hash,self::$_prefix.<span class="stringliteral">&quot;:{$id}&quot;</span>)-&gt;zrem(self::$hash.<span class="stringliteral">&quot;-expire&quot;</span>,self::$_prefix.<span class="stringliteral">&quot;:{$id}&quot;</span>)-&gt;exec()-&gt;drain();
   }
 </pre></div>
 </div>
@@ -195,11 +206,20 @@ Static Protected Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
-<p>Place holder function for garbage collection. Just returns true since we use redis' <a href="http://redis.io/commands/setex" target="_blank">SETEX</a> to delete session data after session.gc_maxlifetime ini value </p>
+<p>Delete expired sessions, if the value of self::$hash is null then this just returns true, else it prunes up to 100 expired sessions at once. </p>
 <dl class="return"><dt><b>Returns:</b></dt><dd>bool true </dd></dl>
 
-<p>Definition at line <a class="el" href="rwky-redis-sessions_8php_source.html#l00089">89</a> of file <a class="el" href="rwky-redis-sessions_8php_source.html">rwky-redis-sessions.php</a>.</p>
+<p>Definition at line <a class="el" href="rwky-redis-sessions_8php_source.html#l00108">108</a> of file <a class="el" href="rwky-redis-sessions_8php_source.html">rwky-redis-sessions.php</a>.</p>
 <div class="fragment"><pre class="fragment">  {
+    <span class="keywordflow">if</span>(is_null(self::$hash)) <span class="keywordflow">return</span> <span class="keyword">true</span>;
+    
+    $expired=self::$redis-&gt;zrangebyscore(self::$hash.<span class="stringliteral">&quot;-expire&quot;</span>,0,time(),<span class="stringliteral">&#39;LIMIT 0 100&#39;</span>);
+    self::$redis-&gt;pipe();
+    <span class="keywordflow">foreach</span>($expired as $e)
+    {
+      self::$redis-&gt;multi()-&gt;zrem(self::$hash.<span class="stringliteral">&quot;-expire&quot;</span>,$e)-&gt;hdel(self::$hash,$e)-&gt;exec();
+    }
+    self::$redis-&gt;drain();
     <span class="keywordflow">return</span> <span class="keyword">true</span>;
   }
 </pre></div>
@@ -245,7 +265,7 @@ Static Protected Attributes</h2></td></tr>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="rwky-redis-sessions_8php_source.html#l00039">39</a> of file <a class="el" href="rwky-redis-sessions_8php_source.html">rwky-redis-sessions.php</a>.</p>
+<p>Definition at line <a class="el" href="rwky-redis-sessions_8php_source.html#l00058">58</a> of file <a class="el" href="rwky-redis-sessions_8php_source.html">rwky-redis-sessions.php</a>.</p>
 <div class="fragment"><pre class="fragment">  {
     <span class="keywordflow">if</span>(is_null(self::$redis)) <span class="keywordflow">throw</span> new \Exception(<span class="stringliteral">&#39;self::$redis is null, you must set RedisSessions::$redis to a redis instance before using any session methods&#39;</span>);
     self::$_prefix=$prefix;
@@ -277,9 +297,9 @@ Static Protected Attributes</h2></td></tr>
 </dl>
 <dl class="return"><dt><b>Returns:</b></dt><dd>string the string representation of the session data </dd></dl>
 
-<p>Definition at line <a class="el" href="rwky-redis-sessions_8php_source.html#l00060">60</a> of file <a class="el" href="rwky-redis-sessions_8php_source.html">rwky-redis-sessions.php</a>.</p>
+<p>Definition at line <a class="el" href="rwky-redis-sessions_8php_source.html#l00079">79</a> of file <a class="el" href="rwky-redis-sessions_8php_source.html">rwky-redis-sessions.php</a>.</p>
 <div class="fragment"><pre class="fragment">  {
-    <span class="keywordflow">return</span> (<span class="keywordtype">string</span>) self::$redis-&gt;get(self::$_prefix.<span class="stringliteral">&quot;:{$id}&quot;</span>);
+    <span class="keywordflow">return</span> (<span class="keywordtype">string</span>) is_null(self::$hash) ? self::$redis-&gt;get(self::$_prefix.<span class="stringliteral">&quot;:{$id}&quot;</span>) : self::$redis-&gt;hget(self::$hash,self::$_prefix.<span class="stringliteral">&quot;:{$id}&quot;</span>);
   }
 </pre></div>
 </div>
@@ -299,7 +319,7 @@ Static Protected Attributes</h2></td></tr>
 <div class="memdoc">
 <p>PHP shutdown function, needs to be here due to a bug in PHP 5.3.2 and below that prevented sessions closing properly when using external classes due to the class being unloaded before the session has closed, registering this as a shutdown function keeps the class loaded </p>
 
-<p>Definition at line <a class="el" href="rwky-redis-sessions_8php_source.html#l00097">97</a> of file <a class="el" href="rwky-redis-sessions_8php_source.html">rwky-redis-sessions.php</a>.</p>
+<p>Definition at line <a class="el" href="rwky-redis-sessions_8php_source.html#l00125">125</a> of file <a class="el" href="rwky-redis-sessions_8php_source.html">rwky-redis-sessions.php</a>.</p>
 <div class="fragment"><pre class="fragment">  {
     session_write_close();
   }
@@ -340,9 +360,9 @@ Static Protected Attributes</h2></td></tr>
 </dl>
 <dl class="return"><dt><b>Returns:</b></dt><dd>bool true on success false on failure </dd></dl>
 
-<p>Definition at line <a class="el" href="rwky-redis-sessions_8php_source.html#l00071">71</a> of file <a class="el" href="rwky-redis-sessions_8php_source.html">rwky-redis-sessions.php</a>.</p>
+<p>Definition at line <a class="el" href="rwky-redis-sessions_8php_source.html#l00090">90</a> of file <a class="el" href="rwky-redis-sessions_8php_source.html">rwky-redis-sessions.php</a>.</p>
 <div class="fragment"><pre class="fragment">  {
-    <span class="keywordflow">return</span> self::$redis-&gt;setex(self::$_prefix.<span class="stringliteral">&quot;:{$id}&quot;</span>,ini_get(<span class="stringliteral">&quot;session.gc_maxlifetime&quot;</span>),$data);
+    <span class="keywordflow">return</span> is_null(self::$hash) ? self::$redis-&gt;setex(self::$_prefix.<span class="stringliteral">&quot;:{$id}&quot;</span>,ini_get(<span class="stringliteral">&quot;session.gc_maxlifetime&quot;</span>),$data) : self::$redis-&gt;pipe()-&gt;multi()-&gt;zadd(self::$hash.<span class="stringliteral">&quot;-expire&quot;</span>,time()+ini_get(<span class="stringliteral">&quot;session.gc_maxlifetime&quot;</span>),self::$_prefix.<span class="stringliteral">&quot;:{$id}&quot;</span>)-&gt;hset(self::$hash,self::$_prefix.<span class="stringliteral">&quot;:{$id}&quot;</span>,$data)-&gt;exec()-&gt;drain();
   }
 </pre></div>
 </div>
@@ -360,7 +380,7 @@ Static Protected Attributes</h2></td></tr>
 <div class="memdoc">
 <p>The prefix of sessions </p>
 
-<p>Definition at line <a class="el" href="rwky-redis-sessions_8php_source.html#l00020">20</a> of file <a class="el" href="rwky-redis-sessions_8php_source.html">rwky-redis-sessions.php</a>.</p>
+<p>Definition at line <a class="el" href="rwky-redis-sessions_8php_source.html#l00029">29</a> of file <a class="el" href="rwky-redis-sessions_8php_source.html">rwky-redis-sessions.php</a>.</p>
 
 </div>
 </div>
@@ -376,7 +396,28 @@ Static Protected Attributes</h2></td></tr>
 <div class="memdoc">
 <p>The session id </p>
 
-<p>Definition at line <a class="el" href="rwky-redis-sessions_8php_source.html#l00025">25</a> of file <a class="el" href="rwky-redis-sessions_8php_source.html">rwky-redis-sessions.php</a>.</p>
+<p>Definition at line <a class="el" href="rwky-redis-sessions_8php_source.html#l00034">34</a> of file <a class="el" href="rwky-redis-sessions_8php_source.html">rwky-redis-sessions.php</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ac9fdf6f2c8fb45c1d3bb9a176802b2ad"></a><!-- doxytag: member="RWKY::Redis::RedisSessions::$hash" ref="ac9fdf6f2c8fb45c1d3bb9a176802b2ad" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">$hash = null<code> [static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>stores sessions in the hash </p>
+<p>store the sessions in the hash specified by the variable value, if null then sessions are stored in keys<br/>
+ Hashes allow purging of all sessions using the <a href="http://redis.io/commands/del" target="_blank">DEL</a> command.<br/>
+ However they don't allow auto expiration so the garbage collector has to be used. The key self::$hash-expire will be used to manage expiration of hashes for the garbage collector<br/>
+ If you are using the redis database only as a session store leave this null since it will skil the need for a garbage collector and you can purge all sessions by using <a href="http://redis.io/commands/flushdb" target="_blank">FLUSHDB</a> </p>
+
+<p>Definition at line <a class="el" href="rwky-redis-sessions_8php_source.html#l00049">49</a> of file <a class="el" href="rwky-redis-sessions_8php_source.html">rwky-redis-sessions.php</a>.</p>
 
 </div>
 </div>
@@ -392,7 +433,7 @@ Static Protected Attributes</h2></td></tr>
 <div class="memdoc">
 <p>The <a class="el" href="class_r_w_k_y_1_1_redis_1_1_redis.html" title="The main redis class, use this to access redis.">Redis</a> instance to communicate with </p>
 
-<p>Definition at line <a class="el" href="rwky-redis-sessions_8php_source.html#l00030">30</a> of file <a class="el" href="rwky-redis-sessions_8php_source.html">rwky-redis-sessions.php</a>.</p>
+<p>Definition at line <a class="el" href="rwky-redis-sessions_8php_source.html#l00039">39</a> of file <a class="el" href="rwky-redis-sessions_8php_source.html">rwky-redis-sessions.php</a>.</p>
 
 </div>
 </div>
@@ -421,7 +462,7 @@ Static Protected Attributes</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Aug 31 2011 14:17:09 for Rwky Redis by
+    <li class="footer">Generated on Thu Sep 1 2011 14:18:57 for Rwky Redis by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>
