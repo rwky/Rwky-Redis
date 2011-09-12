@@ -32,7 +32,7 @@
   
   <td style="padding-left: 0.5em;">
    <div id="projectname">Rwky Redis
-   &#160;<span id="projectnumber">2011090100</span>
+   &#160;<span id="projectnumber">2011091200</span>
    </div>
    <div id="projectbrief">A simple php redis library</div>
   </td>
@@ -110,6 +110,7 @@ Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="benchmark_8php.html#adb4abe846ea96a46e843e443695daf3f">pipelining</a> ()</td></tr>
 <tr><td colspan="2"><h2><a name="var-members"></a>
 Variables</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="benchmark_8php.html#a7e7e7dbbfe52839237c99924e35f2717">$redis</a> = \RWKY\Redis\setUpRedis()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="benchmark_8php.html#a6d7f4b753e7eb18b328a7eeba5e0094f">$tests</a> = array(&quot;magic&quot;,&quot;pipelining&quot;,&quot;connection&quot;)</td></tr>
 </table>
 <hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
@@ -135,8 +136,10 @@ Variables</h2></td></tr>
 <p>Benchmarks tcp vs unix sockets </p>
 
 <p>Definition at line <a class="el" href="benchmark_8php_source.html#l00099">99</a> of file <a class="el" href="benchmark_8php_source.html">benchmark.php</a>.</p>
+
+<p>References <a class="el" href="benchmark_8php_source.html#l00009">$redis</a>.</p>
 <div class="fragment"><pre class="fragment">{
-  global $redis;
+  global <a class="code" href="benchmark_8php.html#a7e7e7dbbfe52839237c99924e35f2717">$redis</a>;
   $redis=new \RWKY\Redis\Redis();
   $redis-&gt;config(<span class="stringliteral">&quot;PORT&quot;</span>,6379);
   echo <span class="stringliteral">&quot;Benchmarking tcp vs unix socket using pipelining&quot;</span>.PHP_EOL;
@@ -208,8 +211,10 @@ Variables</h2></td></tr>
 <p>Benchmarks using __call vs cmd </p>
 
 <p>Definition at line <a class="el" href="benchmark_8php_source.html#l00042">42</a> of file <a class="el" href="benchmark_8php_source.html">benchmark.php</a>.</p>
+
+<p>References <a class="el" href="benchmark_8php_source.html#l00009">$redis</a>.</p>
 <div class="fragment"><pre class="fragment">{
-  global $redis;
+  global <a class="code" href="benchmark_8php.html#a7e7e7dbbfe52839237c99924e35f2717">$redis</a>;
   echo <span class="stringliteral">&quot;Benchmarking __call vs cmd&quot;</span>.PHP_EOL;
   $redis-&gt;flushdb();
   $t=microtime(<span class="keyword">true</span>);
@@ -249,8 +254,10 @@ Variables</h2></td></tr>
 <p>Benchmarks pipelining vs no pipelining </p>
 
 <p>Definition at line <a class="el" href="benchmark_8php_source.html#l00069">69</a> of file <a class="el" href="benchmark_8php_source.html">benchmark.php</a>.</p>
+
+<p>References <a class="el" href="benchmark_8php_source.html#l00009">$redis</a>.</p>
 <div class="fragment"><pre class="fragment">{
-  global $redis;
+  global <a class="code" href="benchmark_8php.html#a7e7e7dbbfe52839237c99924e35f2717">$redis</a>;
   
   echo <span class="stringliteral">&quot;Benchmarking set pipeline vs non pipeline&quot;</span>.PHP_EOL;
   $redis-&gt;flushdb();
@@ -278,6 +285,23 @@ Variables</h2></td></tr>
 </div>
 </div>
 <hr/><h2>Variable Documentation</h2>
+<a class="anchor" id="a7e7e7dbbfe52839237c99924e35f2717"></a><!-- doxytag: member="benchmark.php::$redis" ref="a7e7e7dbbfe52839237c99924e35f2717" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">$redis = \RWKY\Redis\setUpRedis()</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Definition at line <a class="el" href="benchmark_8php_source.html#l00009">9</a> of file <a class="el" href="benchmark_8php_source.html">benchmark.php</a>.</p>
+
+<p>Referenced by <a class="el" href="benchmark_8php_source.html#l00099">connection()</a>, <a class="el" href="rwky-redis-sessions_8php_source.html#l00099">RedisSessions\destroy()</a>, <a class="el" href="rwky-redis-sessions_8php_source.html#l00108">RedisSessions\gc()</a>, <a class="el" href="benchmark_8php_source.html#l00042">magic()</a>, <a class="el" href="rwky-redis-sessions_8php_source.html#l00058">RedisSessions\open()</a>, <a class="el" href="benchmark_8php_source.html#l00069">pipelining()</a>, <a class="el" href="rwky-redis-sessions_8php_source.html#l00079">RedisSessions\read()</a>, and <a class="el" href="rwky-redis-sessions_8php_source.html#l00090">RedisSessions\write()</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="a6d7f4b753e7eb18b328a7eeba5e0094f"></a><!-- doxytag: member="benchmark.php::$tests" ref="a6d7f4b753e7eb18b328a7eeba5e0094f" args="" -->
 <div class="memitem">
 <div class="memproto">
@@ -313,7 +337,7 @@ Variables</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Thu Sep 1 2011 14:18:57 for Rwky Redis by
+    <li class="footer">Generated on Tue Sep 13 2011 00:10:57 for Rwky Redis by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

@@ -32,7 +32,7 @@
   
   <td style="padding-left: 0.5em;">
    <div id="projectname">Rwky Redis
-   &#160;<span id="projectnumber">2011090100</span>
+   &#160;<span id="projectnumber">2011091200</span>
    </div>
    <div id="projectbrief">A simple php redis library</div>
   </td>
@@ -216,7 +216,7 @@ Static Private Attributes</h2></td></tr>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="rwky-redis_8php_source.html#l00545">545</a> of file <a class="el" href="rwky-redis_8php_source.html">rwky-redis.php</a>.</p>
+<p>Definition at line <a class="el" href="rwky-redis_8php_source.html#l00546">546</a> of file <a class="el" href="rwky-redis_8php_source.html">rwky-redis.php</a>.</p>
 <div class="fragment"><pre class="fragment">  {
     $this-&gt;<a class="code" href="class_r_w_k_y_1_1_redis_1_1_protocol.html#a78572828d11dcdf2a498497d9001d557" title="connects to redis if not already connected">connect</a>();
     $resp=stream_get_contents($this-&gt;_connection,$bytes);
@@ -248,7 +248,7 @@ Static Private Attributes</h2></td></tr>
  Lastly if debugging is enabled then the EOL read is noted and the EOL marker is read so it's stripped from the response.</p>
 <dl class="return"><dt><b>Returns:</b></dt><dd>string|null the response </dd></dl>
 
-<p>Definition at line <a class="el" href="rwky-redis_8php_source.html#l00564">564</a> of file <a class="el" href="rwky-redis_8php_source.html">rwky-redis.php</a>.</p>
+<p>Definition at line <a class="el" href="rwky-redis_8php_source.html#l00565">565</a> of file <a class="el" href="rwky-redis_8php_source.html">rwky-redis.php</a>.</p>
 <div class="fragment"><pre class="fragment">  {
     $length=rtrim($this-&gt;<a class="code" href="class_r_w_k_y_1_1_redis_1_1_protocol.html#a630e7ad25c82135165998363c6008e95" title="Reads a single line from redis.">_readLine</a>());
     <span class="keywordflow">if</span>($length==-1) <span class="keywordflow">return</span> null;
@@ -286,7 +286,7 @@ Static Private Attributes</h2></td></tr>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="rwky-redis_8php_source.html#l00522">522</a> of file <a class="el" href="rwky-redis_8php_source.html">rwky-redis.php</a>.</p>
+<p>Definition at line <a class="el" href="rwky-redis_8php_source.html#l00523">523</a> of file <a class="el" href="rwky-redis_8php_source.html">rwky-redis.php</a>.</p>
 <div class="fragment"><pre class="fragment">  {
     $this-&gt;<a class="code" href="class_r_w_k_y_1_1_redis_1_1_protocol.html#a78572828d11dcdf2a498497d9001d557" title="connects to redis if not already connected">connect</a>();
     <span class="keywordflow">try</span>
@@ -322,7 +322,7 @@ Static Private Attributes</h2></td></tr>
  If the number of bulks is -1 then the request doesn't exist and null is returned, otherwise <a class="el" href="class_r_w_k_y_1_1_redis_1_1_protocol.html#a1d8a4ba4c1dbef5ee2953d25f354ff5d" title="Gets the response from redis.">response()</a> is run for each bulk and returned in an array </p>
 <dl class="return"><dt><b>Returns:</b></dt><dd>array an array of responses </dd></dl>
 
-<p>Definition at line <a class="el" href="rwky-redis_8php_source.html#l00583">583</a> of file <a class="el" href="rwky-redis_8php_source.html">rwky-redis.php</a>.</p>
+<p>Definition at line <a class="el" href="rwky-redis_8php_source.html#l00584">584</a> of file <a class="el" href="rwky-redis_8php_source.html">rwky-redis.php</a>.</p>
 <div class="fragment"><pre class="fragment">  {
     $numBulks=rtrim($this-&gt;<a class="code" href="class_r_w_k_y_1_1_redis_1_1_protocol.html#a630e7ad25c82135165998363c6008e95" title="Reads a single line from redis.">_readLine</a>());
     <span class="keywordflow">if</span>($numBulks==-1) <span class="keywordflow">return</span> null;
@@ -361,7 +361,7 @@ Static Private Attributes</h2></td></tr>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="rwky-redis_8php_source.html#l00491">491</a> of file <a class="el" href="rwky-redis_8php_source.html">rwky-redis.php</a>.</p>
+<p>Definition at line <a class="el" href="rwky-redis_8php_source.html#l00492">492</a> of file <a class="el" href="rwky-redis_8php_source.html">rwky-redis.php</a>.</p>
 <div class="fragment"><pre class="fragment">  {
     $this-&gt;<a class="code" href="class_r_w_k_y_1_1_redis_1_1_protocol.html#a78572828d11dcdf2a498497d9001d557" title="connects to redis if not already connected">connect</a>();
     $this-&gt;_caller-&gt;logDebug(<span class="stringliteral">&quot;---WRITE---&quot;</span>.PHP_EOL.$this-&gt;_command);
@@ -375,13 +375,13 @@ Static Private Attributes</h2></td></tr>
         $written+=$sent;
         <span class="keywordflow">if</span>($sent===<span class="keyword">false</span>)
         {
-          $this-&gt;_caller-&gt;err(<span class="stringliteral">&quot;Failed to write to redis&quot;</span>,<a class="code" href="class_r_w_k_y_1_1_redis_1_1_redis.html#a7f79d7b73cfb40bb7855d4260393cc0f">Redis::ERROR</a>,__LINE__);
+          $this-&gt;_caller-&gt;err(<span class="stringliteral">&quot;Failed to write to redis (1) Detail: fwrite returned false&quot;</span>,<a class="code" href="class_r_w_k_y_1_1_redis_1_1_redis.html#a7f79d7b73cfb40bb7855d4260393cc0f">Redis::ERROR</a>,__LINE__);
         }
       }
     }
     <span class="keywordflow">catch</span>(\Exception $e)
     {
-      $this-&gt;_caller-&gt;err(<span class="stringliteral">&quot;Failed to write to redis&quot;</span>,<a class="code" href="class_r_w_k_y_1_1_redis_1_1_redis.html#a7f79d7b73cfb40bb7855d4260393cc0f">Redis::ERROR</a>,__LINE__,$e);
+      $this-&gt;_caller-&gt;err(<span class="stringliteral">&quot;Failed to write to redis (2) Detail:&quot;</span>.$e-&gt;getMessage(),<a class="code" href="class_r_w_k_y_1_1_redis_1_1_protocol.html#a7f79d7b73cfb40bb7855d4260393cc0f">Redis::ERROR</a>,__LINE__,$e);
     }
   }
 </pre></div>
@@ -429,11 +429,12 @@ Static Private Attributes</h2></td></tr>
           $port=$this-&gt;_caller-&gt;config(<span class="stringliteral">&quot;PORT&quot;</span>);
           $this-&gt;_connection=fsockopen($host,$port,$errno,$errstr,$timeout);
         }
+        <span class="keywordflow">if</span>(!$this-&gt;_connection) $this-&gt;_caller-&gt;err(<span class="stringliteral">&quot;Unable to connect to redis (1) Detail: $errno - $errstr&quot;</span>,<a class="code" href="class_r_w_k_y_1_1_redis_1_1_redis.html#a7f79d7b73cfb40bb7855d4260393cc0f">Redis::ERROR</a>,__LINE__,$e);
         stream_set_timeout($this-&gt;_connection,$this-&gt;_caller-&gt;config(<span class="stringliteral">&quot;STREAM_TIMEOUT&quot;</span>));
       }
       <span class="keywordflow">catch</span>(\Exception $e)
       {
-        $this-&gt;_caller-&gt;err(<span class="stringliteral">&quot;Unable to connect to redis, $errno - $errstr&quot;</span>,self::ERROR,__LINE__,$e);
+        $this-&gt;_caller-&gt;err(<span class="stringliteral">&quot;Unable to connect to redis (2) Detail: &quot;</span>.$e-&gt;getMessage(),<a class="code" href="class_r_w_k_y_1_1_redis_1_1_protocol.html#a7f79d7b73cfb40bb7855d4260393cc0f">Redis::ERROR</a>,__LINE__,$e);
       }
     }
     <span class="keywordflow">return</span> $this;
@@ -487,7 +488,7 @@ Static Private Attributes</h2></td></tr>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="rwky-redis_8php_source.html#l00462">462</a> of file <a class="el" href="rwky-redis_8php_source.html">rwky-redis.php</a>.</p>
+<p>Definition at line <a class="el" href="rwky-redis_8php_source.html#l00463">463</a> of file <a class="el" href="rwky-redis_8php_source.html">rwky-redis.php</a>.</p>
 <div class="fragment"><pre class="fragment">  {
     $this-&gt;_command=$cmd;
     $this-&gt;<a class="code" href="class_r_w_k_y_1_1_redis_1_1_protocol.html#a2a2b7cb31b10bea7a0cc0f72e1095fd4" title="Write to redis.">_write</a>();
@@ -518,7 +519,7 @@ Static Private Attributes</h2></td></tr>
 </dl>
 <dl class="return"><dt><b>Returns:</b></dt><dd>array an array of responses </dd></dl>
 
-<p>Definition at line <a class="el" href="rwky-redis_8php_source.html#l00473">473</a> of file <a class="el" href="rwky-redis_8php_source.html">rwky-redis.php</a>.</p>
+<p>Definition at line <a class="el" href="rwky-redis_8php_source.html#l00474">474</a> of file <a class="el" href="rwky-redis_8php_source.html">rwky-redis.php</a>.</p>
 <div class="fragment"><pre class="fragment">  {
     $arr=array();
     <span class="keywordflow">for</span>($i=0;$i&lt;$num;++$i)
@@ -566,7 +567,7 @@ Static Private Attributes</h2></td></tr>
 </dl>
 <dl class="return"><dt><b>Returns:</b></dt><dd>mixed if $buffer then return the command else do not return </dd></dl>
 
-<p>Definition at line <a class="el" href="rwky-redis_8php_source.html#l00400">400</a> of file <a class="el" href="rwky-redis_8php_source.html">rwky-redis.php</a>.</p>
+<p>Definition at line <a class="el" href="rwky-redis_8php_source.html#l00401">401</a> of file <a class="el" href="rwky-redis_8php_source.html">rwky-redis.php</a>.</p>
 <div class="fragment"><pre class="fragment">  {
     $numArgs=count($args);
     $this-&gt;_command=<span class="stringliteral">&quot;*$numArgs&quot;</span>.$this-&gt;_eol;
@@ -613,7 +614,7 @@ Static Private Attributes</h2></td></tr>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="rwky-redis_8php_source.html#l00433">433</a> of file <a class="el" href="rwky-redis_8php_source.html">rwky-redis.php</a>.</p>
+<p>Definition at line <a class="el" href="rwky-redis_8php_source.html#l00434">434</a> of file <a class="el" href="rwky-redis_8php_source.html">rwky-redis.php</a>.</p>
 <div class="fragment"><pre class="fragment">  {
     $format=<span class="keyword">function</span>($r)
     {
@@ -826,7 +827,7 @@ Static Private Attributes</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Thu Sep 1 2011 14:18:57 for Rwky Redis by
+    <li class="footer">Generated on Tue Sep 13 2011 00:10:57 for Rwky Redis by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>
