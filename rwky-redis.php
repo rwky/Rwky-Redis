@@ -13,7 +13,7 @@ class Redis
   /**
  *The version of the library
  */
-  const VERSION=2011090100;
+  const VERSION=2011091200;
   
   /**
    *Redis Errors, these should kill the script
@@ -379,11 +379,12 @@ class Protocol
 			 $port=$this->_caller->config("PORT");
 			 $this->_connection=fsockopen($host,$port,$errno,$errstr,$timeout);
 		  }
+		  if(!$this->_connection) $this->_caller->err("Unable to connect to redis (1) Detail: $errno - $errstr",Redis::ERROR,__LINE__,$e);
 		  stream_set_timeout($this->_connection,$this->_caller->config("STREAM_TIMEOUT"));
       }
       catch(\Exception $e)
       {
-		  $this->_caller->err("Unable to connect to redis, $errno - $errstr",self::ERROR,__LINE__,$e);
+		  $this->_caller->err("Unable to connect to redis (2) Detail: ".$e->getMessage(),Redis::ERROR,__LINE__,$e);
       }
     }
     return $this;
@@ -502,13 +503,13 @@ class Protocol
 		  $written+=$sent;
 		  if($sent===false)
 		  {
-			 $this->_caller->err("Failed to write to redis",Redis::ERROR,__LINE__);
+			 $this->_caller->err("Failed to write to redis (1) Detail: fwrite returned false",Redis::ERROR,__LINE__);
 		  }
 		}
     }
     catch(\Exception $e)
     {
-      $this->_caller->err("Failed to write to redis",Redis::ERROR,__LINE__,$e);
+      $this->_caller->err("Failed to write to redis (2) Detail:".$e->getMessage(),Redis::ERROR,__LINE__,$e);
     }
   }
   
@@ -614,7 +615,7 @@ class RedisException extends \ErrorException
    *@param Exception $previous the previous exception or null
    *@see ErrorException::__construct()
    */
-  public function __construct($caller,$exception,$severity,$filename,$lineno,$previous)
+  public function __construct($caller,$exception,$severity,$filename,$lineno,$previous=null)
   {
     switch($caller->config("ON_EXCEPTION"))
     {

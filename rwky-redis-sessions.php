@@ -10,7 +10,7 @@ namespace RWKY\Redis;
  *@brief Class for storing PHP sessions in redis
  *
  *Stores session data in redis, uses <a href="http://www.php.net/manual/en/function.session-save-path.php" target="_blank">session_save_path()</a> to set the prefix of the redis key.<br />
- Simply include the file and set \RWKY\Redis\RedisSessions::$redis to an instance of \RWKY\Redis\Redis to have it enable session handling. You must include it before calling any <a href="http://www.php.net/manual/en/ref.session.php" target="_blank">session_*</a> functions.<br />
+ Simply include the file and set \\RWKY\\Redis\\RedisSessions::$redis to an instance of \\RWKY\\Redis\\Redis to have it enable session handling. You must include it before calling any <a href="http://www.php.net/manual/en/ref.session.php" target="_blank">session_*</a> functions.<br />
  Example:<br />
  <code><br />
  <?php<br />
@@ -108,8 +108,7 @@ class RedisSessions
   public static function gc()
   {
     if(is_null(self::$hash)) return true;
-    
-    $expired=self::$redis->zrangebyscore(self::$hash."-expire",0,time(),'LIMIT 0 100');
+    $expired=self::$redis->zrangebyscore(self::$hash."-expire",0,time(),'LIMIT',0,100);
     self::$redis->pipe();
     foreach($expired as $e)
     {
