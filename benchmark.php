@@ -5,8 +5,8 @@
  *It can benchmark magic methods vs cmd, pipelining vs no pipelining and tcp vs unix sockets<br />
  *<strong>Be careful when running this file it may overwrite your redis database</strong>
  */
-require("tests/tests-include.php");
-
+require("tests/tests-include.inc");
+$redis=\RWKY\Redis\setUpRedis();
 $tests=array("magic","pipelining","connection");
 
 if(!isset($argv[1])) $argv[1]="all";
