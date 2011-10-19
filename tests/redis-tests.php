@@ -46,6 +46,19 @@ class RedisTest extends PHPUnit_Framework_TestCase
       $redis->flushdb();
    }
    
+   public function testRawPipeCommands()
+   {
+      $redis=\RWKY\Redis\setUpRedis();
+      $redis->raw(true);
+      $redis->pipe();
+      $redis->set("testkey","apple");
+      $redis->get("testkey","apple");
+      $redis->get("testkey");
+      $redis->del("testkey");
+      $this->assertEquals(array("+OK","-ERR wrong number of arguments for 'get' command","apple",":1"),$redis->drain());
+      $redis->flushdb();
+   }
+   
    public function testLargeSetGet()
    {
       $data=file_get_contents("/dev/urandom",null,null,0,1048576);

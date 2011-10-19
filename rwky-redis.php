@@ -13,7 +13,7 @@ class Redis
   /**
  *The version of the library
  */
-  const VERSION=2011091200;
+  const VERSION=2011101900;
   
   /**
    *Redis Errors, these should kill the script
@@ -469,14 +469,15 @@ class Protocol
   /**
    *returns a pipeline response
    *@param int $num the number of responses to collect
+   *@param bool $raw if true then return raw response else use $format function
    *@return array an array of responses
    */
-  public function pipeResponse($num)
+  public function pipeResponse($num,$raw=false)
   {
     $arr=array();
     for($i=0;$i<$num;++$i)
     {
-      $arr[]=$this->response();
+      $arr[]=$this->response($raw);
     }
     return $arr;
   }
