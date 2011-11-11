@@ -7,12 +7,12 @@ PHP 5.3.0 or greater
 Examples of usage
 
 Create a redis instant, add some data via a pipe and then return it
-```php
+<pre>
 require("rwky-redis.php");
 $redis = new \RWKY\Redis\Redis();
 $response=$redis->pipe()->set("Question","What is your favourite colour?")->set("Answer","Blue...no yellow..ARGHHHH")->get("Question")->get("Answer")->drain();
 print_r($response);
-```
+</pre>
 Will output:
 <pre>Array
 (
