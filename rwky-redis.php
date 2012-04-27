@@ -13,7 +13,7 @@ class Redis
   /**
  *The version of the library
  */
-  const VERSION=2011101900;
+  const VERSION=2012042700;
   
   /**
    *Redis Errors, these should kill the script
@@ -286,6 +286,18 @@ class Redis
     $this->_currentPipe=$p;
     return $r;
   }
+  
+  /**
+   *@brief closes the connection
+   *
+   *Closes the connection, connection can be restablished by running another query
+   *@return Redis $this
+   */
+  
+  public function close(){
+	 $this->protocol->close();
+	 return $this;
+  }
 
 
 }
@@ -388,6 +400,17 @@ class Protocol
       }
     }
     return $this;
+  }
+  
+  /**
+   *@brief closes the connection
+   *
+   *Closes the connection, connection can be restablished by running another query, sets $this->_connection to null
+   */
+  
+  public function close(){
+	 fclose($this->_connection);
+	 $this->_connection=null;
   }
 
   /**
